@@ -1,2 +1,3 @@
-# hash
-Created with CodeSandbox
+# Hash
+
+Practice from Rob Edwards video lectures
