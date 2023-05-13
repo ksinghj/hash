@@ -3435,15 +3435,15 @@ levn@~0.3.0:
     type-check "~0.3.2"
 
 linked-list-ksinghj@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/linked-list-ksinghj/-/linked-list-ksinghj-1.0.1.tgz#274663b15bb0906a051099ad390a7972b7f1b9ab"
-  integrity sha512-kfpQnF+eUlGKY5gxn38Pv8+xp1q5i6slEeV066xfJHycR1Loohp/wXVwmWOXzm5Mt/i+h7Ig4IZFKK4F/omwpw==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/linked-list-ksinghj/-/linked-list-ksinghj-1.0.5.tgz#f4bec83ab377bc8c0ff32d0f120ad5f40356e9df"
+  integrity sha512-T+5TXVCAKW+P2r0drKK22YOXyeXV50IxuHjutVjZ05jz9du7t8fTRgLxfYr5X+Xokilds7DXzxRyy6CsPNA1uA==
   dependencies:
     lodash "^4.17.21"
 
 linked-list@^3.1.0:
   version "3.1.0"
-  resolved "https://registry.npmjs.org/linked-list/-/linked-list-3.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/linked-list/-/linked-list-3.1.0.tgz#fa1df237906c312da1ddcd43f76cce8e3121612d"
   integrity sha512-8fTIVBkKRqJ9MPEwggRkzYsOGcicCC4qSXm6iANVJOGwXrkew85kL7zFztQHSOQBbM6zG+vqtC/cTHm4nuUCSg==
 
 lodash.clone@^4.5.0:
