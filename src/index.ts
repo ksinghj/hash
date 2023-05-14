@@ -29,7 +29,9 @@ export class Hash<K, V> {
 
     // initialise hashArray to be an array of linked lists
     for (let i = 0; i < tableSize; i++) {
-      Array.from(Array(5)).forEach((val, index) => (this.hashArray[index] = new LinkedList<HashElement<K, V>>()))
+      Array.from(Array(tableSize)).forEach(
+        (val, index) => (this.hashArray[index] = new LinkedList<HashElement<K, V>>())
+      )
     }
 
     this.maxLoadFactor = 0.75
@@ -55,7 +57,9 @@ export class Hash<K, V> {
     return hashValue
   }
 
-  add(key: K, value: V) {
+  add(key: K, value: V): void {
+    this.loadFactor = this.numberOfElements / this.hashArray.length
+
     if (this.loadFactor > this.maxLoadFactor) {
       this.resize(this.tableSize * 2)
     }
@@ -68,14 +72,50 @@ export class Hash<K, V> {
     this.numberOfElements += 1
   }
 
-  //   resize() {}
+  resize(newSize: number): void {
+    const newHashArray: LinkedList<HashElement<K, V>>[] = []
+    Array.from(Array(newSize)).forEach((val, index) => (newHashArray[index] = new LinkedList<HashElement<K, V>>()))
 
-  remove(key: K) {
-    const hashValue = this.hashCode(key)
-    this.hashArray[hashValue].findAndRemove(key)
+    // for each hash element (LL, or 'bucket'), traverse the LL
+    this.hashArray.forEach(hashElm => {
+      let current = hashElm.head
+      while (current !== null) {
+        const hashElm = new HashElement(current.key, current.value)
+        const hashVal = this.hashCode(current.key)
+        newHashArray[hashVal].addFirst(hashElm)
+        current = current.next
+      }
+    })
+
+    this.tableSize = newSize
+    this.hashArray = newHashArray
   }
 
-  //   getValue() {}
+  remove(key: K): void {
+    const hashValue = this.hashCode(key)
+    this.hashArray[hashValue].findAndRemove(key)
+    this.numberOfElements -= 1
+  }
+
+  getValue(key: K): V | null {
+    const hashValue = this.hashCode(key)
+    const list = this.hashArray[hashValue]
+
+    if (!list) return null
+
+    // loop through LL and compare keys, then return value
+    let temp = null,
+      current = list.head
+    while (current !== null) {
+      if (current.key === key) {
+        return current.value
+      }
+      temp = current
+      current = current.next
+    }
+
+    return null
+  }
 }
 
 // mock data type for testing
@@ -84,8 +124,14 @@ interface UserDetails {
 }
 
 const myHash = new Hash<string, UserDetails>(5)
-myHash.add('kartar', { age: 22 })
+myHash.add('Kartar', { age: 22 })
 myHash.add('Max', { age: 23 })
+myHash.add('Jin', { age: 43 })
+myHash.add('Lucy', { age: 21 })
+myHash.add('Donna', { age: 57 })
+myHash.add('LP', { age: 21 })
+myHash.add('Dobby', { age: 999 })
+myHash.add('Sharkeisha', { age: 27 })
 myHash.remove('Max')
 
 console.log({ myHash })
