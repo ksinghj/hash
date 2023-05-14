@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
     "strict": true,
+    "target": "es5",
     "module": "commonjs",
+    "lib": ["es2017", "es7", "es6", "dom"],
     "jsx": "preserve",
     "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": true,
-    "lib": [
-      "es6",
-      "dom"
-    ],
     "rootDir": "src",
-    "moduleResolution": "node"
-  }
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "exclude": ["./babel.config.js", "./node_modules", "./dist"],
+  "include": ["./src/index.ts"]
 }

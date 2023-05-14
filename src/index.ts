@@ -58,6 +58,7 @@ export class Hash<K, V> {
   }
 
   add(key: K, value: V): void {
+    this.numberOfElements += 1
     this.loadFactor = this.numberOfElements / this.hashArray.length
 
     if (this.loadFactor > this.maxLoadFactor) {
@@ -69,7 +70,12 @@ export class Hash<K, V> {
     const hashValue = this.hashCode(elementToAdd.key)
 
     this.hashArray[hashValue].addFirst(elementToAdd)
-    this.numberOfElements += 1
+  }
+
+  remove(key: K): void {
+    const hashValue = this.hashCode(key)
+    this.hashArray[hashValue].findAndRemove(key)
+    this.numberOfElements -= 1
   }
 
   resize(newSize: number): void {
@@ -89,12 +95,6 @@ export class Hash<K, V> {
 
     this.tableSize = newSize
     this.hashArray = newHashArray
-  }
-
-  remove(key: K): void {
-    const hashValue = this.hashCode(key)
-    this.hashArray[hashValue].findAndRemove(key)
-    this.numberOfElements -= 1
   }
 
   getValue(key: K): V | null {
@@ -117,21 +117,3 @@ export class Hash<K, V> {
     return null
   }
 }
-
-// mock data type for testing
-interface UserDetails {
-  age: number
-}
-
-const myHash = new Hash<string, UserDetails>(5)
-myHash.add('Kartar', { age: 22 })
-myHash.add('Max', { age: 23 })
-myHash.add('Jin', { age: 43 })
-myHash.add('Lucy', { age: 21 })
-myHash.add('Donna', { age: 57 })
-myHash.add('LP', { age: 21 })
-myHash.add('Dobby', { age: 999 })
-myHash.add('Sharkeisha', { age: 27 })
-myHash.remove('Max')
-
-console.log({ myHash })
